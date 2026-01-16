@@ -22,30 +22,29 @@ A Claude Code prompt template for generating detailed codebase metrics reports w
 
 ### Prerequisites
 - [Claude Code CLI](https://claude.ai/code) installed and configured
-- Access to the codebase you want to analyze
 
 ### Usage
 
-1. **Navigate to your target codebase:**
-   ```bash
-   cd /path/to/your/codebase
-   ```
+1. **Install Claude Code** - Follow instructions at [claude.ai/code](https://claude.ai/code)
 
-2. **Create the output directory for reports:**
-   ```bash
-   mkdir -p output-reports/$(date +%Y-%m-%d)_$(basename $(pwd))_code_review_report
-   ```
-
-3. **Run Claude Code with this prompt:**
+2. **Login to your terminal and start Claude:**
    ```bash
    claude
    ```
-   Then copy the analysis prompt from the [Analysis Prompt](#the-analysis-prompt) section below.
 
-4. **View the generated report:**
-   - Open `output-reports/YYYY-MM-DD_codebaseName_code_review_report/index.html` in your browser
+3. **Enter the following prompt:**
+   ```
+   load and execute the CLAUDE_CODE_REVIEW.md procedures on the following project code base: /path/to/your/code
+   ```
+
+4. **Watch the magic happen!** The tool will analyze your codebase and generate an interactive report.
+
+5. **View the generated report:**
+   - Open `output-reports/YYYY-MM-DD_projectName_code_review_report/index.html` in your browser
    - Click **📄 Export PDF** button to generate a shareable PDF
    - Review `data.json` for raw metrics data
+
+Enjoy! =]
 
 ### Output Structure
 ```
@@ -1286,11 +1285,16 @@ Would you like me to add any additional metrics or expand on any particular area
 
 ## Credits
 
-**Author:** [Jacob Baloul](https://www.linkedin.com/in/jacovbaloul/)
+**Code Review Tool & Logic Created by:** [Jacob Baloul](https://www.linkedin.com/in/jacovbaloul/)
 
-**Inspiration:** This comprehensive code analysis prompt was inspired by the work of [Professor Dries Buytaert](https://dri.es/measuring-drupal-core-code-complexity) on measuring Drupal core code complexity.
+**Inspired by:** [Professor Dries Buytaert's work](https://dri.es/measuring-drupal-core-code-complexity) on measuring Drupal core code complexity.
 
-### References & Standards
+### Key References
+
+- **[drupal-core-metrics](https://github.com/dbuytaert/drupal-core-metrics)** - Professor Dries Buytaert's original metrics analysis tool for Drupal core
+- **[Measuring Drupal Code Complexity](https://dri.es/measuring-drupal-core-code-complexity)** - Blog post explaining the methodology
+
+### Standards & Methodologies
 
 - **Chidamber & Kemerer (CK) Metrics** - Original OO metrics suite (1994)
 - **MOOD Metrics** - Metrics for Object-Oriented Design by Abreu & Carapuça
@@ -1308,4 +1312,4 @@ Would you like me to add any additional metrics or expand on any particular area
 
 MIT License - See [LICENSE](LICENSE) for details.
 
-This work is derived from and inspired by [drupal-core-metrics](https://github.com/dbuytaert/drupal-core-metrics) by Dries Buytaert, which is also licensed under the MIT License.
+This work is inspired by [drupal-core-metrics](https://github.com/dbuytaert/drupal-core-metrics) by Professor Dries Buytaert.
