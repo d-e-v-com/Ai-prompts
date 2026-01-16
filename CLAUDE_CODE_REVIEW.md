@@ -18,6 +18,61 @@ A Claude Code prompt template for generating detailed codebase metrics reports w
 
 ---
 
+## KPI Metrics & Industry Benchmarks
+
+This tool analyzes **14 metric categories** and scores them against industry benchmarks:
+
+### Core Code Quality Metrics
+
+| # | Metric Category | Key KPIs | Benchmark (Good) |
+|---|----------------|----------|------------------|
+| 1 | **Code Quality Fundamentals** | SLOC, Cyclomatic Complexity, Cognitive Complexity, Maintainability Index, Comment Ratio, Duplication % | Complexity < 10, Maintainability > 65 |
+| 2 | **Call Stack & Coupling** | Max Call Depth, Blast Radius, Files Per Change, Coupling Score, Instability Index | Depth < 10, Files/Change < 5 |
+| 3 | **CK Metrics (Chidamber-Kemerer)** | WMC, DIT, NOC, CBO, RFC, LCOM | WMC < 50, CBO < 14, LCOM < 0.5 |
+| 4 | **MOOD Metrics** | MHF, AHF, MIF, AIF, PF, CF | MHF > 0.5, AHF > 0.8, CF < 0.2 |
+| 5 | **Design Pattern Detection** | Creational, Structural, Behavioral, Architectural patterns | Patterns detected with confidence scores |
+| 6 | **Anti-Pattern Detection** | God Class, Spaghetti Code, Feature Envy, Circular Dependencies, 30+ anti-patterns | 0 critical anti-patterns |
+| 7 | **SOLID Compliance** | Single Responsibility, Open/Closed, Liskov, Interface Segregation, Dependency Inversion | Score > 70 per principle |
+
+### Security, Testing & Documentation
+
+| # | Metric Category | Key KPIs | Benchmark (Good) |
+|---|----------------|----------|------------------|
+| 8 | **Security Metrics** | OWASP Top 10, Secrets Detection, SQL Injection, XSS, Encryption Coverage | 0 critical vulnerabilities |
+| 9 | **Test Quality Metrics** | Line Coverage, Branch Coverage, Mutation Score, Test-to-Code Ratio, Assertion Density | Coverage > 80%, Ratio 0.5-1.5 |
+| 10 | **Documentation Metrics** | Public API Docs, README Score, Changelog, Architecture Docs | API Docs > 90% |
+| 11 | **Technical Debt (SQALE)** | Debt Ratio, Remediation Time, Debt by Category, Hotspots | Debt Ratio < 5% |
+
+### Operational Readiness
+
+| # | Metric Category | Key KPIs | Benchmark (Good) |
+|---|----------------|----------|------------------|
+| 12 | **DocOps Assessment** | Installation Docs, Repeatability, Operational Docs, Troubleshooting | Score > 70 |
+| 13 | **AWS Well-Architected** | Operational Excellence, Security, Reliability, Performance, Cost Optimization, Sustainability | Score > 70 per pillar |
+| 14 | **Code Churn & Evolution** | Churn Rate, Hotspot Files, Author Concentration, Change Coupling | Bus Factor > 2 |
+
+### Industry Benchmark Thresholds
+
+| Metric | Poor | Fair | Good | Excellent |
+|--------|------|------|------|-----------|
+| Maintainability Index | < 40 | 40-65 | 65-85 | > 85 |
+| Cyclomatic Complexity (avg) | > 15 | 10-15 | 5-10 | < 5 |
+| Cognitive Complexity (avg) | > 20 | 15-20 | 8-15 | < 8 |
+| Technical Debt Ratio | > 20% | 10-20% | 5-10% | < 5% |
+| Test Coverage | < 40% | 40-60% | 60-80% | > 80% |
+| Duplication | > 10% | 5-10% | 3-5% | < 3% |
+| LCOM (Cohesion) | > 0.8 | 0.5-0.8 | 0.3-0.5 | < 0.3 |
+| Coupling (CBO avg) | > 20 | 14-20 | 8-14 | < 8 |
+| Call Stack Depth (max) | > 15 | 10-15 | 5-10 | < 5 |
+| Files Per Change | > 10 | 5-10 | 3-5 | < 3 |
+| Circular Dependencies | > 5 | 2-5 | 1-2 | 0 |
+| SOLID Score | < 40 | 40-60 | 60-80 | > 80 |
+| DocOps Score | < 40 | 40-60 | 60-80 | > 80 |
+| Well-Architected Score | < 40 | 40-60 | 60-80 | > 80 |
+| Security Posture | Critical gaps | Some gaps | Good | Defense in depth |
+
+---
+
 ## Quick Start
 
 ### Prerequisites

@@ -20,6 +20,25 @@ A comprehensive Claude Code prompt template for generating detailed codebase met
 - Interactive Chart.js dashboard with dark/light mode
 - PDF Export
 
+**14 KPI Metric Categories:**
+
+| # | Category | Key Metrics |
+|---|----------|-------------|
+| 1 | Code Quality Fundamentals | SLOC, Cyclomatic Complexity, Cognitive Complexity, Maintainability Index |
+| 2 | Call Stack & Coupling | Max Call Depth, Blast Radius, Files Per Change, Instability Index |
+| 3 | CK Metrics | WMC, DIT, NOC, CBO, RFC, LCOM |
+| 4 | MOOD Metrics | MHF, AHF, MIF, AIF, PF, CF |
+| 5 | Design Pattern Detection | Creational, Structural, Behavioral, Architectural patterns |
+| 6 | Anti-Pattern Detection | God Class, Spaghetti Code, Feature Envy, 30+ anti-patterns |
+| 7 | SOLID Compliance | S, O, L, I, D principle scores |
+| 8 | Security Metrics | OWASP Top 10, Secrets, SQL Injection, XSS |
+| 9 | Test Quality | Coverage, Mutation Score, Assertion Density |
+| 10 | Documentation | API Docs, README Score, Architecture Docs |
+| 11 | Technical Debt (SQALE) | Debt Ratio, Remediation Time, Hotspots |
+| 12 | DocOps Assessment | Installation, Repeatability, Operational Docs |
+| 13 | AWS Well-Architected | 6 Pillars: OpEx, Security, Reliability, Performance, Cost, Sustainability |
+| 14 | Code Churn & Evolution | Churn Rate, Hotspots, Bus Factor |
+
 **Quick Start:**
 1. Install [Claude Code](https://claude.ai/code)
 2. Login to your terminal and start `claude`
