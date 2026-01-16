@@ -1,0 +1,15 @@
+# Output reports directory - contains potentially proprietary analysis data
+output-reports/*
+!output-reports/.gitkeep
+
+# Common IDE and OS files
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Environment files
+.env
+.env.local
