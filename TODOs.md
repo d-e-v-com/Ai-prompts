@@ -6,6 +6,7 @@ Tracking enhancements and fixes for the Claude Code Review prompt template.
 
 ## PDF Generation
 
+- [ ] **Derive PDF from PNG** - Generate PDF from the high-resolution PNG screenshot since PNG is closest in look and feel to index.html
 - [ ] **Fix PDF output quality** - Current Puppeteer PDF export doesn't match the visual quality of index.html in browser
 - [ ] **Make PDF generation headless and reliable** - Backend process should not pop up browser export/save prompts
 - [ ] **Preserve styling accuracy** - Charts, colors, dark theme, and layout must match browser rendering exactly
@@ -15,10 +16,9 @@ Tracking enhancements and fixes for the Claude Code Review prompt template.
 
 ## PNG Screenshot Generation
 
+- [ ] **Enhance PNG resolution** - Current 2x device scale factor produces blurry output; increase to 3x or 4x for crisp high-DPI rendering
 - [ ] **Full-page screenshot automation** - Generate pixel-perfect PNG that matches browser experience
-- [ ] **High-resolution output** - Minimum 2x device scale factor for crisp rendering
 - [ ] **Wait for Chart.js rendering** - Ensure all charts are fully rendered before capture
-- [ ] **Current workaround** - Use browser plugin (e.g., GoFullPage) for accurate full-page screenshots until automated solution is reliable
 
 ---
 
