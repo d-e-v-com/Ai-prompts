@@ -105,10 +105,15 @@ Enjoy! =]
 ```
 output-reports/
 └── YYYY-MM-DD_codebaseName_code_review_report/
-    ├── data.json          # Raw metrics data (JSON)
-    ├── index.html         # Interactive dashboard with PDF export
-    └── *.pdf              # Generated PDF report (after export)
+    ├── data.json                                              # Raw metrics data (JSON)
+    ├── index.html                                             # Interactive dashboard
+    ├── YYYY-MM-DD_codebaseName_ACTION_ITEMS.md                # Remediation plan (Markdown)
+    ├── YYYY-MM-DD_codebaseName_ACTION_ITEMS.html              # Remediation plan (HTML)
+    ├── YYYY-MM-DD_codebaseName_ACTION_ITEMS.pdf               # Remediation plan (PDF) - auto-generated
+    ├── YYYY-MM-DD_codebaseName_CODE_REVIEW_AUDIT_REPORT.png   # Dashboard screenshot - auto-generated
+    └── YYYY-MM-DD_codebaseName_CODE_REVIEW_AUDIT_REPORT.pdf   # Dashboard PDF - auto-generated
 ```
+**Note:** All 7 files are generated automatically. PDF and PNG files are created via headless browser.
 
 ### Example
 ```bash
@@ -1660,10 +1665,43 @@ if (!localStorage.getItem('action_items_pdf_exported_' + document.title)) {
 10. **Report Generation**
     - Aggregate metrics at file, directory, language, and project levels
     - Generate data.json with all findings
-    - Generate index.html dashboard
+    - Generate index.html dashboard (single-page, no tabs)
+    - Generate ACTION_ITEMS.md remediation plan
+    - Generate ACTION_ITEMS.html styled version
     - Create dependency visualization
 
-11. **Executive Summary**
+11. **Automatic PDF/PNG Export (REQUIRED)**
+    - **MUST generate all PDF and PNG files automatically using headless browser**
+    - Use puppeteer, playwright, or chrome/chromium in headless mode via bash
+    - Generate these files automatically (do NOT rely on user clicking export buttons):
+      - `YYYY-MM-DD_CODEBASE-NAME_CODE_REVIEW_AUDIT_REPORT.pdf` from index.html
+      - `YYYY-MM-DD_CODEBASE-NAME_CODE_REVIEW_AUDIT_REPORT.png` from index.html
+      - `YYYY-MM-DD_CODEBASE-NAME_ACTION_ITEMS.pdf` from ACTION_ITEMS.html
+    - Example using puppeteer (install if needed: `npm install puppeteer`):
+    ```bash
+    node -e "
+    const puppeteer = require('puppeteer');
+    (async () => {
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+      await page.goto('file://$(pwd)/index.html', {waitUntil: 'networkidle0'});
+      await page.waitForTimeout(2000); // Wait for charts to render
+      await page.pdf({path: 'REPORT.pdf', format: 'A4', printBackground: true});
+      await page.screenshot({path: 'REPORT.png', fullPage: true});
+      await browser.close();
+    })();
+    "
+    ```
+    - Alternative: Use chrome/chromium directly:
+    ```bash
+    # PDF export
+    chromium --headless --disable-gpu --print-to-pdf=REPORT.pdf index.html
+    # PNG export
+    chromium --headless --disable-gpu --screenshot=REPORT.png --window-size=1400,10000 index.html
+    ```
+    - **All 7 output files MUST exist when task completes**
+
+12. **Executive Summary**
     - Overall health grade with justification
     - Top 10 files needing immediate attention
     - Critical security findings
