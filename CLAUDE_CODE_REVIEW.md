@@ -1204,9 +1204,73 @@ Generate `index.html` as a self-contained dashboard with:
 - Use D3.js for dependency graphs
 - Responsive design
 - Dark/light mode toggle
-- Export to PDF button using html2pdf.js (CDN: https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js)
 - Collapsible sections
 - Print-optimized CSS (@media print)
+
+**PDF/PNG Export Requirements**
+- Include html2pdf.js (CDN: https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js)
+- Add TWO export buttons: "📄 Export PDF" and "🖼️ Export PNG"
+- Use these EXACT html2pdf.js settings for high-quality output:
+```javascript
+const opt = {
+    margin: [10, 10, 10, 10],
+    filename: filename,
+    image: { type: 'png', quality: 1.0 },  // PNG format, max quality
+    html2canvas: {
+        scale: 4,           // 4x scale for crisp high-DPI rendering
+        useCORS: true,
+        logging: false,
+        allowTaint: true,
+        backgroundColor: null  // Preserve transparency
+    },
+    jsPDF: {
+        unit: 'mm',
+        format: 'a4',
+        orientation: 'portrait',
+        compress: true
+    },
+    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+};
+```
+- **Chart.js Wait Logic**: Before capturing, wait for ALL charts to be ready using this pattern:
+```javascript
+function waitForCharts() {
+    return new Promise((resolve) => {
+        const checkCharts = () => {
+            const canvases = document.querySelectorAll('canvas');
+            const allReady = Array.from(canvases).every(canvas => {
+                const chart = Chart.getChart(canvas);
+                return chart && chart.ctx;
+            });
+            if (allReady) {
+                // Additional delay for animation completion
+                setTimeout(resolve, 500);
+            } else {
+                requestAnimationFrame(checkCharts);
+            }
+        };
+        checkCharts();
+    });
+}
+```
+- **PNG Export Function**: Add standalone PNG export that captures the full page:
+```javascript
+async function exportPNG() {
+    await waitForCharts();
+    const element = document.querySelector('.container');
+    const canvas = await html2canvas(element, {
+        scale: 4,
+        useCORS: true,
+        logging: false,
+        allowTaint: true
+    });
+    const link = document.createElement('a');
+    link.download = filename.replace('.pdf', '.png');
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+}
+```
+- Auto-export should use `waitForCharts()` instead of fixed `setTimeout()`
 
 **Footer Requirements**
 - Link to prompt source: https://github.com/d-e-v-com/Ai-prompts/blob/master/CLAUDE_CODE_REVIEW.md

@@ -6,19 +6,19 @@ Tracking enhancements and fixes for the Claude Code Review prompt template.
 
 ## PDF Generation
 
-- [ ] **Derive PDF from PNG** - Generate PDF from the high-resolution PNG screenshot since PNG is closest in look and feel to index.html
-- [ ] **Fix PDF output quality** - Current Puppeteer PDF export doesn't match the visual quality of index.html in browser
-- [ ] **Make PDF generation headless and reliable** - Backend process should not pop up browser export/save prompts
-- [ ] **Preserve styling accuracy** - Charts, colors, dark theme, and layout must match browser rendering exactly
-- [ ] **Auto-open PDF when complete** - After headless generation, open the resulting PDF for review
+- [x] **Derive PDF from PNG** - ✅ FIXED: PDF now uses PNG format internally with html2canvas (scale 4x)
+- [x] **Fix PDF output quality** - ✅ FIXED: Increased scale to 4x, switched to PNG format, quality 1.0
+- [ ] **Make PDF generation headless and reliable** - Backend process should not pop up browser export/save prompts (requires Node.js/Puppeteer script)
+- [x] **Preserve styling accuracy** - ✅ FIXED: Added `allowTaint: true`, `backgroundColor: null` for better rendering
+- [ ] **Auto-open PDF when complete** - After headless generation, open the resulting PDF for review (requires backend script)
 
 ---
 
 ## PNG Screenshot Generation
 
-- [ ] **Enhance PNG resolution** - Current 2x device scale factor produces blurry output; increase to 3x or 4x for crisp high-DPI rendering
-- [ ] **Full-page screenshot automation** - Generate pixel-perfect PNG that matches browser experience
-- [ ] **Wait for Chart.js rendering** - Ensure all charts are fully rendered before capture
+- [x] **Enhance PNG resolution** - ✅ FIXED: Increased from 2x to 4x scale for crisp high-DPI rendering
+- [x] **Full-page screenshot automation** - ✅ FIXED: Added dedicated `exportPNG()` function with 4x scale
+- [x] **Wait for Chart.js rendering** - ✅ FIXED: Added `waitForCharts()` using `Chart.getChart()` API instead of fixed timeout
 
 ---
 
@@ -26,10 +26,10 @@ Tracking enhancements and fixes for the Claude Code Review prompt template.
 
 Goal: Automated generation of offline-ready deliverables that exactly match the interactive index.html:
 
-- [ ] `index.html` - Interactive dashboard (current - working)
-- [ ] `report.png` - Full-page screenshot (needs automation improvement)
-- [ ] `report.pdf` - Print-ready PDF (needs quality fix)
-- [ ] `data.json` - Raw metrics data (current - working)
+- [x] `index.html` - Interactive dashboard (working)
+- [x] `report.png` - Full-page screenshot (✅ FIXED: 4x scale, Chart.js wait logic)
+- [x] `report.pdf` - Print-ready PDF (✅ FIXED: PNG-based, 4x scale)
+- [x] `data.json` - Raw metrics data (working)
 
 ---
 
@@ -45,7 +45,13 @@ Goal: Automated generation of offline-ready deliverables that exactly match the 
 
 ## Notes
 
-Current PDF/PNG generation uses Puppeteer 13.7.0 (compatible with Node 15.x). Consider:
-- Upgrading Node.js to support latest Puppeteer
-- Alternative tools: Playwright, wkhtmltopdf, or browser-native print-to-PDF with better settings
-- Server-side rendering approach for consistent output
+**Current Implementation (Updated 2026-01-20):**
+- PDF/PNG generation now uses html2pdf.js + html2canvas with 4x scale factor
+- PNG format used internally for better quality (vs previous JPEG)
+- Proper Chart.js wait logic using `Chart.getChart()` API
+- Added dedicated PNG export button alongside PDF export
+
+**Remaining work for true headless generation:**
+- Consider Node.js script with Puppeteer/Playwright for server-side rendering
+- Alternative tools: wkhtmltopdf, or browser-native print-to-PDF
+- Upgrade Node.js to support latest Puppeteer if needed
