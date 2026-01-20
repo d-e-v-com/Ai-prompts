@@ -30,13 +30,13 @@ Goal: Automated generation of offline-ready deliverables for sharing and action.
 
 ```
 output-reports/YYYY-MM-DD_CodeBaseName_code_review_report/
-├── data.json                                    # Raw metrics data (JSON)
-├── index.html                                   # Interactive dashboard
-├── YYYY-MM-DD_CodeBaseName_report.png           # Dashboard screenshot (4x scale)
-├── YYYY-MM-DD_CodeBaseName_report.pdf           # Dashboard PDF export
-├── YYYY-MM-DD_CodeBaseName_ACTION_ITEMS.md      # Remediation plan (Markdown)
-├── YYYY-MM-DD_CodeBaseName_ACTION_ITEMS.html    # Remediation plan (styled HTML)
-└── YYYY-MM-DD_CodeBaseName_ACTION_ITEMS.pdf     # Remediation plan (PDF for executives)
+├── data.json                                              # Raw metrics data (JSON)
+├── index.html                                             # Interactive dashboard
+├── YYYY-MM-DD_CodeBaseName_CODE_REVIEW_AUDIT_REPORT.png   # Dashboard screenshot (4x scale)
+├── YYYY-MM-DD_CodeBaseName_CODE_REVIEW_AUDIT_REPORT.pdf   # Dashboard PDF export
+├── YYYY-MM-DD_CodeBaseName_ACTION_ITEMS.md                # Remediation plan (Markdown)
+├── YYYY-MM-DD_CodeBaseName_ACTION_ITEMS.html              # Remediation plan (styled HTML)
+└── YYYY-MM-DD_CodeBaseName_ACTION_ITEMS.pdf               # Remediation plan (PDF for executives)
 ```
 
 ### Status
@@ -45,8 +45,8 @@ output-reports/YYYY-MM-DD_CodeBaseName_code_review_report/
 |------|--------|-------|
 | `data.json` | ✅ Working | Raw metrics data |
 | `index.html` | ✅ Working | Interactive dashboard with charts |
-| `*_report.png` | ✅ Implemented | 4x scale, Chart.js wait logic |
-| `*_report.pdf` | ✅ Implemented | PNG-based, 4x scale |
+| `*_CODE_REVIEW_AUDIT_REPORT.png` | ✅ Implemented | 4x scale, Chart.js wait logic |
+| `*_CODE_REVIEW_AUDIT_REPORT.pdf` | ✅ Implemented | PNG-based, 4x scale |
 | `*_ACTION_ITEMS.md` | ✅ Implemented | Epics/Stories/Subtasks format |
 | `*_ACTION_ITEMS.html` | ✅ Implemented | Styled HTML, print-optimized |
 | `*_ACTION_ITEMS.pdf` | ✅ Implemented | Executive-friendly PDF |

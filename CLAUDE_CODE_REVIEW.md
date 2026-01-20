@@ -153,8 +153,8 @@ Create the following files:
 3. `YYYY-MM-DD_CODEBASE-NAME_ACTION_ITEMS.md` - Actionable remediation plan with Epics, Stories, and Subtasks
 4. `YYYY-MM-DD_CODEBASE-NAME_ACTION_ITEMS.html` - Styled HTML version of action items (for PDF generation)
 5. `YYYY-MM-DD_CODEBASE-NAME_ACTION_ITEMS.pdf` - PDF export of action items (executive-friendly for email sharing)
-6. `YYYY-MM-DD_CODEBASE-NAME_report.png` - Full-page PNG screenshot of dashboard
-7. `YYYY-MM-DD_CODEBASE-NAME_report.pdf` - PDF export of dashboard
+6. `YYYY-MM-DD_CODEBASE-NAME_CODE_REVIEW_AUDIT_REPORT.png` - Full-page PNG screenshot of dashboard
+7. `YYYY-MM-DD_CODEBASE-NAME_CODE_REVIEW_AUDIT_REPORT.pdf` - PDF export of dashboard
 
 ## Metrics to Calculate
 
