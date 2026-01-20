@@ -24,12 +24,89 @@ Tracking enhancements and fixes for the Claude Code Review prompt template.
 
 ## Deliverables
 
-Goal: Automated generation of offline-ready deliverables that exactly match the interactive index.html:
+Goal: Automated generation of offline-ready deliverables for sharing and action.
 
-- [x] `index.html` - Interactive dashboard (working)
-- [x] `report.png` - Full-page screenshot (✅ FIXED: 4x scale, Chart.js wait logic)
-- [x] `report.pdf` - Print-ready PDF (✅ FIXED: PNG-based, 4x scale)
-- [x] `data.json` - Raw metrics data (working)
+### Expected Output Files
+
+```
+output-reports/YYYY-MM-DD_CodeBaseName_code_review_report/
+├── data.json                                    # Raw metrics data (JSON)
+├── index.html                                   # Interactive dashboard
+├── YYYY-MM-DD_CodeBaseName_report.png           # Dashboard screenshot (4x scale)
+├── YYYY-MM-DD_CodeBaseName_report.pdf           # Dashboard PDF export
+├── YYYY-MM-DD_CodeBaseName_ACTION_ITEMS.md      # Remediation plan (Markdown)
+├── YYYY-MM-DD_CodeBaseName_ACTION_ITEMS.html    # Remediation plan (styled HTML)
+└── YYYY-MM-DD_CodeBaseName_ACTION_ITEMS.pdf     # Remediation plan (PDF for executives)
+```
+
+### Status
+
+| File | Status | Notes |
+|------|--------|-------|
+| `data.json` | ✅ Working | Raw metrics data |
+| `index.html` | ✅ Working | Interactive dashboard with charts |
+| `*_report.png` | ✅ Implemented | 4x scale, Chart.js wait logic |
+| `*_report.pdf` | ✅ Implemented | PNG-based, 4x scale |
+| `*_ACTION_ITEMS.md` | ✅ Implemented | Epics/Stories/Subtasks format |
+| `*_ACTION_ITEMS.html` | ✅ Implemented | Styled HTML, print-optimized |
+| `*_ACTION_ITEMS.pdf` | ✅ Implemented | Executive-friendly PDF |
+
+---
+
+## Markdown Action Items Output (✅ IMPLEMENTED)
+
+Generate `YYYY-MM-DD_CodeBaseName_ACTION_ITEMS.md` in the same output-reports folder containing:
+
+### Structure
+
+1. **Executive Summary**
+   - High-level findings overview
+   - Critical issues count by severity
+   - Overall health grade and key metrics
+
+2. **Findings Summary**
+   - Categorized list of all detected issues
+   - Anti-patterns, security vulnerabilities, code smells
+   - Technical debt hotspots
+
+3. **Remediation Plan** (Epics → Stories → Subtasks)
+
+   **Format:**
+   ```markdown
+   ## Epic: [Category - e.g., "Security Hardening"]
+   Priority: Critical/High/Medium/Low
+
+   ### Story: [Specific Issue - e.g., "Fix SQL Injection Vulnerabilities"]
+   **Priority:** Critical
+   **Estimated Effort:** X hours
+   **Description:** Detailed explanation of the issue and why it matters
+
+   **Affected Files:**
+   - `/full/path/to/file1.js:45` - Description of issue
+   - `/full/path/to/file2.js:123` - Description of issue
+
+   **Acceptance Criteria:**
+   - [ ] All parameterized queries implemented
+   - [ ] No raw SQL concatenation remains
+   - [ ] Unit tests added for input validation
+
+   #### Subtask 1: [Specific action]
+   **File:** `/full/path/to/file.js`
+   **Lines:** 45-67
+   **Action:** Replace string concatenation with parameterized query
+   **Details:** [Code snippet or specific instructions AI/developer can immediately act on]
+   ```
+
+### Requirements
+
+- [x] **Prioritization** - ✅ Order by severity: Critical → High → Medium → Low
+- [x] **Full File Paths** - ✅ Include absolute paths to all files needing modification
+- [x] **Line Numbers** - ✅ Reference specific line numbers where issues occur
+- [x] **Actionable Details** - ✅ Enough context for AI or developer to immediately start fixing
+- [x] **Acceptance Criteria** - ✅ Clear, testable criteria for each story
+- [x] **Effort Estimates** - ✅ Based on technical debt hours from analysis
+- [x] **Code Snippets** - ✅ Include relevant code excerpts where helpful
+- [x] **Cross-References** - ✅ Link related issues that should be fixed together
 
 ---
 

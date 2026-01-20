@@ -147,7 +147,14 @@ Analyze this project's codebase and generate a comprehensive metrics report foll
 Save all output files to: output-reports/YYYY-MM-DD_CODEBASE-NAME_code_review_report/
 (Replace YYYY-MM-DD with today's date and CODEBASE-NAME with the project name)
 
-Create a data.json file and an index.html dashboard.
+Create the following files:
+1. `data.json` - Raw metrics data
+2. `index.html` - Interactive dashboard with PDF/PNG export
+3. `YYYY-MM-DD_CODEBASE-NAME_ACTION_ITEMS.md` - Actionable remediation plan with Epics, Stories, and Subtasks
+4. `YYYY-MM-DD_CODEBASE-NAME_ACTION_ITEMS.html` - Styled HTML version of action items (for PDF generation)
+5. `YYYY-MM-DD_CODEBASE-NAME_ACTION_ITEMS.pdf` - PDF export of action items (executive-friendly for email sharing)
+6. `YYYY-MM-DD_CODEBASE-NAME_report.png` - Full-page PNG screenshot of dashboard
+7. `YYYY-MM-DD_CODEBASE-NAME_report.pdf` - PDF export of dashboard
 
 ## Metrics to Calculate
 
@@ -1279,6 +1286,312 @@ async function exportPNG() {
 
 **Search & Filter**
 - Search/filter functionality for anti-patterns table
+
+---
+
+Generate `YYYY-MM-DD_CODEBASE-NAME_ACTION_ITEMS.md` as an actionable remediation plan:
+
+**File Naming:** Use the same date and codebase name pattern (e.g., `2026-01-20_MyProject_ACTION_ITEMS.md`)
+
+**Document Structure:**
+
+```markdown
+# Action Items: [Project Name] Code Review
+**Generated:** YYYY-MM-DD
+**Health Grade:** [A-F]
+**Total Issues:** X (Critical: X, High: X, Medium: X, Low: X)
+**Estimated Total Effort:** X hours
+
+---
+
+## Executive Summary
+
+[2-3 paragraph overview of the codebase health, major concerns, and recommended priorities]
+
+### Critical Metrics
+| Metric | Value | Target | Status |
+|--------|-------|--------|--------|
+| Maintainability Index | XX | >65 | ⚠️/✅/❌ |
+| Cyclomatic Complexity | XX | <10 | ⚠️/✅/❌ |
+| Security Score | XX | >80 | ⚠️/✅/❌ |
+| Test Coverage | XX% | >80% | ⚠️/✅/❌ |
+| Technical Debt | XX hrs | <40 hrs | ⚠️/✅/❌ |
+
+---
+
+## Findings Summary
+
+### By Severity
+- **Critical (P0):** X issues - Immediate attention required
+- **High (P1):** X issues - Address within current sprint
+- **Medium (P2):** X issues - Plan for next sprint
+- **Low (P3):** X issues - Backlog
+
+### By Category
+- Security Vulnerabilities: X
+- Anti-Patterns: X
+- Code Smells: X
+- Performance Issues: X
+- Documentation Gaps: X
+
+---
+
+## Remediation Plan
+
+### Epic 1: [Category - e.g., "Security Hardening"]
+**Priority:** Critical
+**Total Effort:** X hours
+**Description:** [Why this epic matters and what it addresses]
+
+---
+
+#### Story 1.1: [Specific Issue - e.g., "Fix SQL Injection Vulnerabilities"]
+**Priority:** Critical (P0)
+**Effort:** X hours
+**Labels:** `security`, `sql-injection`, `owasp-top-10`
+
+**Description:**
+[Detailed explanation of the issue, why it's a problem, and the business impact]
+
+**Affected Files:**
+| File | Line(s) | Issue |
+|------|---------|-------|
+| `/full/path/to/UserRepository.js` | 45-52 | Raw SQL query with string concatenation |
+| `/full/path/to/OrderService.js` | 123 | Unparameterized query in search function |
+
+**Acceptance Criteria:**
+- [ ] All database queries use parameterized statements
+- [ ] No string concatenation in SQL queries
+- [ ] Input validation added for all user-supplied parameters
+- [ ] Unit tests cover SQL injection edge cases
+- [ ] Security scan passes with no SQL injection findings
+
+**Subtasks:**
+
+##### Subtask 1.1.1: Refactor UserRepository.js query methods
+**File:** `/full/path/to/UserRepository.js`
+**Lines:** 45-52
+**Effort:** 1 hour
+
+**Current Code:**
+\`\`\`javascript
+const query = "SELECT * FROM users WHERE id = " + userId;
+\`\`\`
+
+**Required Change:**
+\`\`\`javascript
+const query = "SELECT * FROM users WHERE id = ?";
+db.execute(query, [userId]);
+\`\`\`
+
+**Steps:**
+1. Replace string concatenation with parameterized query
+2. Update all callers to pass parameters correctly
+3. Add input validation for userId
+4. Write unit test for edge cases (null, special characters)
+
+---
+
+##### Subtask 1.1.2: Refactor OrderService.js search function
+**File:** `/full/path/to/OrderService.js`
+**Lines:** 123
+**Effort:** 1.5 hours
+
+[Same detailed format...]
+
+---
+
+#### Story 1.2: [Next Story...]
+[Same format...]
+
+---
+
+### Epic 2: [Next Category - e.g., "Code Quality Improvements"]
+[Same format...]
+
+---
+
+## Appendix
+
+### High-Risk Files (Top 10)
+| File | Complexity | Maintainability | Issues | Risk |
+|------|------------|-----------------|--------|------|
+| `/path/to/file1.js` | 45 | 32 | 8 | Critical |
+| `/path/to/file2.js` | 38 | 41 | 5 | High |
+
+### Anti-Pattern Locations
+[Full list of detected anti-patterns with file:line references]
+
+### Circular Dependencies
+[List of circular dependency chains that need breaking]
+```
+
+**Content Requirements:**
+
+1. **Prioritization**
+   - Order Epics by severity: Critical → High → Medium → Low
+   - Within each Epic, order Stories by effort-to-impact ratio
+   - Group related issues into logical Epics
+
+2. **File References**
+   - ALWAYS include full absolute paths (e.g., `/src/services/UserService.js`)
+   - ALWAYS include line numbers (e.g., `lines 45-67`)
+   - Include the actual code snippet when helpful
+
+3. **Actionable Details**
+   - Each Subtask must be immediately actionable by AI or developer
+   - Include "Current Code" and "Required Change" snippets where applicable
+   - Provide step-by-step remediation instructions
+   - Reference specific functions, classes, and variable names
+
+4. **Acceptance Criteria**
+   - Each Story must have testable acceptance criteria
+   - Use checkbox format `- [ ]` for tracking
+   - Be specific (not "improve code" but "reduce complexity below 10")
+
+5. **Effort Estimates**
+   - Base estimates on technical debt hours from analysis
+   - Break down by Story and Subtask
+   - Include total per Epic
+
+6. **Cross-References**
+   - Link related issues that should be fixed together
+   - Note dependencies between Stories
+   - Highlight files that appear in multiple issues (hotspots)
+
+7. **Labels/Tags**
+   - Include relevant labels for easy filtering (security, performance, refactoring, etc.)
+   - Match common issue tracker taxonomies (OWASP, CWE for security)
+
+---
+
+Generate `YYYY-MM-DD_CODEBASE-NAME_ACTION_ITEMS.html` as a styled, printable HTML version:
+
+**Purpose:** Intermediate file for PDF generation and browser viewing
+
+**Requirements:**
+- Self-contained HTML with embedded CSS (no external dependencies)
+- Professional styling matching the dashboard theme (dark mode default)
+- Print-optimized CSS (@media print) for clean PDF output
+- Proper page breaks between Epics
+- Syntax highlighting for code snippets
+- Collapsible sections for Stories/Subtasks (expanded by default for PDF)
+- Table of contents with anchor links
+- Company-ready formatting suitable for executive sharing
+
+**Styling:**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Action Items: [Project Name]</title>
+    <style>
+        :root {
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #16213e;
+            --text-primary: #eee;
+            --text-secondary: #a0a0a0;
+            --accent-red: #e94560;
+            --accent-green: #4ecca3;
+            --accent-blue: #00d9ff;
+            --accent-yellow: #ffc107;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+        h1, h2, h3, h4 { color: var(--accent-blue); }
+        .priority-critical { color: var(--accent-red); font-weight: bold; }
+        .priority-high { color: #fd7e14; }
+        .priority-medium { color: var(--accent-yellow); }
+        .priority-low { color: var(--accent-green); }
+        table { width: 100%; border-collapse: collapse; margin: 1em 0; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #333; }
+        th { background: var(--bg-secondary); }
+        code { background: #0d0d1a; padding: 2px 6px; border-radius: 4px; }
+        pre { background: #0d0d1a; padding: 16px; border-radius: 8px; overflow-x: auto; }
+        .checkbox { margin-right: 8px; }
+        .label {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-right: 4px;
+            background: var(--bg-secondary);
+        }
+        @media print {
+            body { background: white; color: black; }
+            h1, h2, h3, h4 { color: #1a1a2e; }
+            .page-break { page-break-before: always; }
+            pre, code { background: #f5f5f5; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Rendered markdown content here -->
+</body>
+</html>
+```
+
+---
+
+Generate `YYYY-MM-DD_CODEBASE-NAME_ACTION_ITEMS.pdf` from the HTML:
+
+**Purpose:** Executive-friendly PDF for email sharing
+
+**Generation Method:**
+Use the browser's built-in print-to-PDF functionality or include a script that auto-generates the PDF:
+
+```javascript
+// Include html2pdf.js in the ACTION_ITEMS.html
+// <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+function exportActionItemsPDF() {
+    const element = document.body;
+    const filename = document.title.replace('Action Items: ', '') + '_ACTION_ITEMS.pdf';
+
+    const opt = {
+        margin: [15, 15, 15, 15],
+        filename: filename,
+        image: { type: 'png', quality: 1.0 },
+        html2canvas: {
+            scale: 3,
+            useCORS: true,
+            logging: false
+        },
+        jsPDF: {
+            unit: 'mm',
+            format: 'a4',
+            orientation: 'portrait'
+        },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    };
+
+    html2pdf().set(opt).from(element).save();
+}
+
+// Auto-generate PDF on first load
+if (!localStorage.getItem('action_items_pdf_exported_' + document.title)) {
+    setTimeout(() => {
+        exportActionItemsPDF();
+        localStorage.setItem('action_items_pdf_exported_' + document.title, 'true');
+    }, 1000);
+}
+```
+
+**PDF Requirements:**
+- A4 format, portrait orientation
+- Clean margins (15mm)
+- Page breaks between major sections (Epics)
+- All code snippets readable
+- Tables not cut off at page boundaries
+- Professional appearance suitable for executive/stakeholder sharing
 
 ## Execution Steps
 
